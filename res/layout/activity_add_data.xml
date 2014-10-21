@@ -51,8 +51,27 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText3"
-        android:layout_marginTop="22dp"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="84dp"
         android:text="Cancel" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText3"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_toLeftOf="@+id/editText3"
+        android:src="@drawable/boy" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editText3"
+        android:layout_alignTop="@+id/imageView1"
+        android:text="Photo" />
 
 </RelativeLayout>
