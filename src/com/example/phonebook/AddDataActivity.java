@@ -1,7 +1,6 @@
 package com.example.phonebook;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Files;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,7 +51,48 @@ public class AddDataActivity extends Activity {
 				// TODO Auto-generated method stub
 		        PhoneDAO dao = new PhoneDAODBImpl(context);
 		        int i = dao.add(new Phone(0, ed1.getText().toString(), ed2.getText().toString(), ed3.getText().toString()));
+		        
 		        Log.d("DB", "rowId:" + i);
+		        InputStream is = null;
+		        OutputStream os = null;
+		        File dest = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "p" + i + ".jpg");
+		        
+		        Log.d("DB", dest.toString());
+
+		        if (photoSourcePath != null)
+		        {
+			        try {
+			            is = new FileInputStream(photoSourcePath);
+			            os = new FileOutputStream(dest);
+			            byte[] buffer = new byte[1024];
+			            int length;
+			            while ((length = is.read(buffer)) > 0) {
+			                os.write(buffer, 0, length);
+			            }
+			        } catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally {
+			            try {
+							is.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			            try {
+							os.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			        }
+		
+		        }
+
+		        
 				finish();
 				
 				
@@ -103,7 +144,7 @@ public class AddDataActivity extends Activity {
 	    }
 	}
 	
-	String mCurrentPhotoPath;
+	String mCurrentPhotoPath, photoSourcePath;
 	
 	private File createImageFile() throws IOException {
 	    // Create an image file name
@@ -118,6 +159,7 @@ public class AddDataActivity extends Activity {
 	    );
 
 	    // Save a file: path for use with ACTION_VIEW intents
+	    photoSourcePath = image.getAbsolutePath();
 	    mCurrentPhotoPath = "file:" + image.getAbsolutePath();
 	    return image;
 	}
