@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,7 +50,8 @@ public class AddDataActivity extends Activity {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 		        PhoneDAO dao = new PhoneDAODBImpl(context);
-		        dao.add(new Phone(0, ed1.getText().toString(), ed2.getText().toString(), ed3.getText().toString()));
+		        int i = dao.add(new Phone(0, ed1.getText().toString(), ed2.getText().toString(), ed3.getText().toString()));
+		        Log.d("DB", "rowId:" + i);
 				finish();
 				
 				

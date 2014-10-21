@@ -1,7 +1,7 @@
 package com.example.phonebook.data;
 
 public interface PhoneDAO {
-	public void add(Phone p);
+	public int add(Phone p);
 	public Phone[] getAll();
 	public Phone getPhone(int ID);
 	public Phone[] search(String keyword);

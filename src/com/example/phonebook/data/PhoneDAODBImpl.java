@@ -15,12 +15,19 @@ public class PhoneDAODBImpl implements PhoneDAO {
 	}
 	
 	@Override
-	public void add(Phone p) {
+	public int add(Phone p) {
+		
 		// TODO Auto-generated method stub
+		int i;
 		PhoneDBHelper helper = new PhoneDBHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         db.execSQL("Insert into contacts (UserName, Tel, Addr) values ('" + p.Name +  "', '" + p.Tel + "', '" + p.Addr + "')");
+        Cursor cursor = db.rawQuery("Select last_insert_rowId()", null);
+        cursor.moveToFirst();
+        i = cursor.getInt(0);
         db.close();
+        
+        return i;
 	}
 
 	@Override
