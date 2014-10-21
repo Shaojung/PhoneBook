@@ -21,11 +21,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 public class AddDataActivity extends Activity {
 	Button btnAdd, btnCancel, btnPhoto;
 	EditText ed1, ed2, ed3;
 	Context context;
+	ImageView img;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +40,8 @@ public class AddDataActivity extends Activity {
 		ed1 = (EditText) findViewById(R.id.editText1);
 		ed2 = (EditText) findViewById(R.id.editText2);
 		ed3 = (EditText) findViewById(R.id.editText3);
+		
+		img = (ImageView) findViewById(R.id.imageView1);
 		
 		btnAdd.setOnClickListener(new Button.OnClickListener(){
 
@@ -69,7 +73,8 @@ public class AddDataActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-
+	    	Uri uri = Uri.parse(mCurrentPhotoPath);
+	    	img.setImageURI(uri);
 	    }
 	}
 	
