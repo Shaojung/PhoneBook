@@ -109,7 +109,11 @@ public class AddDataActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				dispatchTakePictureIntent();
+				// dispatchTakePictureIntent();
+				
+				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+				intent.setType("image/*");
+				startActivityForResult(intent, 567);
 			}});
 	}
 
