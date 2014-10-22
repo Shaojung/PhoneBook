@@ -1,5 +1,6 @@
 package com.example.phonebook;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.example.phonebook.data.*;
@@ -9,7 +10,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -215,15 +219,24 @@ public class PhonebookActivity extends Activity {
 			tv1.setText(data[position].Tel);
 
 			ImageView iv = (ImageView) v.findViewById(R.id.imageView1);
-			if (data[position].Name.equals("Mary"))
-			{
-				iv.setImageResource(R.drawable.girl);	
-			}
-			else
-			{
-				iv.setImageResource(R.drawable.boy);
-			}
-			
+	        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "p" + data[position].ID + ".jpg");
+	        
+	        if (file.exists())
+	        {
+	        	Bitmap bm = BitmapFactory.decodeFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/" + "p" + data[position].ID + ".jpg");
+	        	iv.setImageBitmap(bm);
+	        }
+	        else
+	        {
+				if (data[position].Name.equals("Mary"))
+				{
+					iv.setImageResource(R.drawable.girl);	
+				}
+				else
+				{
+					iv.setImageResource(R.drawable.boy);
+				}
+	        }
 			
 			CheckBox chk = (CheckBox) v.findViewById(R.id.checkBox1);
 			chk.setChecked(listShow.get(position));
